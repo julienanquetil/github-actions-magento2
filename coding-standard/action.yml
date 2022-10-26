@@ -61,5 +61,9 @@ runs:
 
     - name: Coding Standard Check
       shell: bash
-      run: ../standard/vendor/bin/phpcs --standard=Magento2 --report=checkstyle -q --extensions=php,phtml ${{ github.event_name == 'pull_request' && steps.changed-files.outputs.files || inputs.path }} | cs2pr
+      run: ../standard/vendor/bin/phpcs --standard=Magento2 --report-full --report-checkstyle=./phpcs-report.xml --extensions=php,phtml ${{ github.event_name == 'pull_request' && steps.changed-files.outputs.files || inputs.path }}
       working-directory: project
+      
+    - name: Show PHPCS results in PR
+      if: ${{ always() && steps.phpcs.outcome == 'failure' }}
+      run: cs2pr ./phpcs-report.xml
