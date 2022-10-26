@@ -65,5 +65,6 @@ runs:
       working-directory: project
 
     - name: Show PHPCS results in PR
+      shell: bash
       if: ${{ always() && steps.phpcs.outcome == 'failure' }}
       run: cs2pr ./phpcs-report.xml
