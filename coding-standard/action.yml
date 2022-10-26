@@ -61,5 +61,5 @@ runs:
 
     - name: Coding Standard Check
       shell: bash
-      run: ../standard/vendor/bin/phpcs --report=checkstyle --extensions=php,phtml --standard=Magento2  ${{ github.event_name == 'pull_request' && steps.changed-files.outputs.files || inputs.path }} | cs2pr
+      run: ../standard/vendor/bin/phpcs --report=checkstyle --warning-severity=0 --extensions=php,phtml --standard=Magento2  ${{ github.event_name == 'pull_request' && steps.changed-files.outputs.files || inputs.path }} | cs2pr
       working-directory: project
